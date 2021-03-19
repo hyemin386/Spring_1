@@ -12,6 +12,6 @@
 </head>
 <body>
 	<h1>Member Page</h1>
-	<h1><%= memberDTO.getEmail() %></h1>
+	<h1><%= memberDTO.getEmail()%></h1>
 </body>
 </html>

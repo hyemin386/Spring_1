@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,8 +37,6 @@ public class MemberController {
 		/* String이 대신 해주기때문에 선언 따로 안하고 위의 매개변수안에 String name, int age로 선언해줌
 		 * String name = request.getParameter("name"); 
 		 * int age = Integer.parseInt(request.getParameter("age"));
-		 */
-		/*
 		 * System.out.println(name); 
 		 * System.out.println(age);
 		 */
@@ -48,17 +47,9 @@ public class MemberController {
 	
 	
 	@RequestMapping (value = "/member/memberLogin" , method=RequestMethod.POST)
-	public String memberLogin2 (HttpServletRequest request) throws Exception {
-		String id = request.getParameter("id");  //파라미터 받을때는 무조건 string
-		String pw = request.getParameter("pw");
-		
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setId(id);
-		memberDTO.setPw(pw);		
+	public String memberLogin2 (MemberDTO memberDTO, Model model) throws Exception {//model은 request와 같은 역할(데이터 운반)		
 		memberDTO = memberService.memberLogin(memberDTO);
-		
-		System.out.println(memberDTO);
-		request.setAttribute("dto", memberDTO);
+		model.addAttribute("dto",memberDTO); //model에 내가 보내고자하는 데이터 넣기 
 		return "member/memberPage";  //로그인 성공시 memberPage로 이동
 	}
 }
