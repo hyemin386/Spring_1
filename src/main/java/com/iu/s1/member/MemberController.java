@@ -19,10 +19,9 @@ public class MemberController {
 	private MemberService memberService; 
 	
 	//memberJoin get
-	@RequestMapping (value = "/member/memberJoin", method = RequestMethod.GET)
-	public String memberJoin() {
-		System.out.println("MemberJoin");
-		return "member/memberJoin";
+	@RequestMapping (value = "/member/memberJoin")
+	public void memberJoin() {
+		//return "member/memberJoin";
 	}
 	
 	//memberJoin2 post 결과 print
