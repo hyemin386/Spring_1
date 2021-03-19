@@ -56,7 +56,7 @@ public class BankBookDAO {
 		return ar;
 	}
 
-	public BankBookDTO getSelect(long bookNumber) throws Exception {
+	public BankBookDTO getSelect(BankBookDTO bankBookDTO) throws Exception {
 		//1. 로그인 정보 
 		String user ="user01";
 		String password = "user01";
@@ -76,20 +76,19 @@ public class BankBookDAO {
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		//6. ?
-		st.setLong(1, bookNumber);
+		st.setLong(1, bankBookDTO.getBookNumber());
 		
 		//7. 최종 전송 후 처리
 		ResultSet rs = st.executeQuery();
-		
-		BankBookDTO bankBookDTO= null;
-		
+			
 		if(rs.next()) {
 			bankBookDTO = new BankBookDTO();
 			bankBookDTO.setBookNumber(rs.getLong("bookNumber"));
 			bankBookDTO.setBookName(rs.getString("bookName"));
 			bankBookDTO.setBookRate(rs.getDouble("bookRate"));
-			bankBookDTO.setBookSale(rs.getString("bookSale"));
-			
+			bankBookDTO.setBookSale(rs.getString("bookSale"));		
+		} else {
+			bankBookDTO = null;
 		}
 		
 		rs.close();

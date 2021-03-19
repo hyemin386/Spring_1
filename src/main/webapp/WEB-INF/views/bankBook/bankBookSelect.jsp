@@ -8,5 +8,8 @@
 </head>
 <body>
 	<h1>BankBookSelect Page</h1>
+	<h3>${dto.bookName}</h3>
+	<h3>${dto.bookRate}</h3>
+	<h3>${dto.bookSale}</h3>
 </body>
 </html>
