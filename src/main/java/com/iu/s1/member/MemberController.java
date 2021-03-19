@@ -1,5 +1,7 @@
 package com.iu.s1.member;
 
+import java.io.Reader;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class MemberController {
 	private MemberService memberService; 
 	
 	//memberJoin get
-	@RequestMapping (value = "/member/memberJoin")
+	@RequestMapping (value = "/member/memberJoin", method = RequestMethod.GET)
 	public String memberJoin() {
 		System.out.println("MemberJoin");
 		return "member/memberJoin";
@@ -46,7 +48,7 @@ public class MemberController {
 	
 	
 	@RequestMapping (value = "/member/memberLogin" , method=RequestMethod.POST)
-	public void memberLogin2 (HttpServletRequest request) throws Exception {
+	public String memberLogin2 (HttpServletRequest request) throws Exception {
 		String id = request.getParameter("id");  //파라미터 받을때는 무조건 string
 		String pw = request.getParameter("pw");
 		
@@ -56,5 +58,7 @@ public class MemberController {
 		memberDTO = memberService.memberLogin(memberDTO);
 		
 		System.out.println(memberDTO);
+		request.setAttribute("dto", memberDTO);
+		return "member/memberPage";  //로그인 성공시 memberPage로 이동
 	}
 }
