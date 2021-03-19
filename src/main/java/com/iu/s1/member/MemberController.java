@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 @Controller
 public class MemberController {
@@ -47,9 +49,11 @@ public class MemberController {
 	
 	
 	@RequestMapping (value = "/member/memberLogin" , method=RequestMethod.POST)
-	public String memberLogin2 (MemberDTO memberDTO, Model model) throws Exception {//model은 request와 같은 역할(데이터 운반)		
+	public ModelAndView memberLogin2 (MemberDTO memberDTO, ModelAndView modelAndView) throws Exception {//model은 request와 같은 역할(데이터 운반)		
 		memberDTO = memberService.memberLogin(memberDTO);
-		model.addAttribute("dto",memberDTO); //model에 내가 보내고자하는 데이터 넣기 
-		return "member/memberPage";  //로그인 성공시 memberPage로 이동
+		modelAndView.addObject("dto", memberDTO); //불러올 데이터 
+		modelAndView.setViewName("member/memberPage"); //이동할 경로작성
+		
+		return modelAndView; 
 	}
 }
